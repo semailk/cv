@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Алиев Руслан | PHP Developer · Remote Ready</title>
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --primary-light: #818cf8;
+            --accent: #10b981;
+            --bg-dark: #f8fafc;
+            --bg-card: #ffffff;
+            --text-dark: #0f172a;
+            --text-gray: #475569;
+            --border-light: #e2e8f0;
+            --shadow-sm: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
+            --shadow-md: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
+        }
+
+        body {
+            background: var(--bg-dark);
+            font-family: 'Inter', sans-serif;
+            color: var(--text-dark);
+            scroll-behavior: smooth;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Language switcher */
+        .lang-switch {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            z-index: 1000;
+            background: white;
+            border-radius: 60px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-light);
+            display: flex;
+            gap: 4px;
+            padding: 4px;
+            backdrop-filter: blur(10px);
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: var(--text-gray);
+        }
+
+        .lang-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .lang-btn:hover:not(.active) {
+            background: #f1f5f9;
+        }
+
+        /* Header / Hero */
+        .hero {
+            padding: 80px 0 60px;
+            background: linear-gradient(135deg, #f8fafc 0%, #eef2ff 100%);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .hero-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 48px;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .hero-info {
+            flex: 1;
+            min-width: 280px;
+        }
+
+        .hero-avatar {
+            flex-shrink: 0;
+        }
+
+        .avatar-wrapper {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            padding: 3px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .avatar-wrapper:hover {
+            transform: scale(1.02);
+        }
+
+        .avatar-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            background: white;
+        }
+
+        .badge-remote {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--accent);
+            padding: 6px 14px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 3.2rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+        }
+
+        .hero-tagline {
+            font-size: 1.25rem;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .hero-desc {
+            color: var(--text-gray);
+            max-width: 550px;
+            margin-bottom: 28px;
+            line-height: 1.6;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 32px;
+            flex-wrap: wrap;
+            margin-top: 24px;
+        }
+
+        .stat {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
+        .stat i {
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-top: 24px;
+        }
+
+        .btn {
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px -5px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1.5px solid var(--border-light);
+            color: var(--text-dark);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        #avatarUpload {
+            display: none;
+        }
+
+        /* Sections */
+        section {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 32px;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-title i {
+            color: var(--primary);
+            font-size: 1.6rem;
+        }
+
+        /* Grid cards */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border-radius: 24px;
+            padding: 28px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-light);
+            transition: all 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #eef2ff, #e0e7ff);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .card-icon i {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .card h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .card p {
+            color: var(--text-gray);
+            line-height: 1.5;
+            margin-bottom: 8px;
+        }
+
+        /* Interesting facts */
+        .facts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .fact-item {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 20px;
+            border: 1px solid var(--border-light);
+            transition: all 0.3s;
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+
+        .fact-item:hover {
+            transform: translateX(6px);
+            border-color: var(--primary-light);
+        }
+
+        .fact-icon {
+            width: 44px;
+            height: 44px;
+            background: #f1f5f9;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .fact-icon i {
+            font-size: 1.3rem;
+            color: var(--primary);
+        }
+
+        .fact-content h4 {
+            font-weight: 700;
+            margin-bottom: 6px;
+            font-size: 1rem;
+        }
+
+        .fact-content p {
+            color: var(--text-gray);
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+
+        /* Skills */
+        .skills-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .skill-tag {
+            background: #f1f5f9;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-dark);
+            transition: all 0.2s;
+        }
+
+        .skill-tag:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Timeline */
+        .timeline-item {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 24px 28px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border-light);
+            transition: all 0.3s;
+        }
+
+        .timeline-item:hover {
+            transform: translateX(8px);
+            border-color: var(--primary-light);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .timeline-date {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 8px;
+            letter-spacing: 0.3px;
+        }
+
+        .timeline-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .timeline-desc {
+            color: var(--text-gray);
+            line-height: 1.5;
+        }
+
+        /* Social & Contact */
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin: 40px 0 30px;
+        }
+
+        .social-link {
+            width: 52px;
+            height: 52px;
+            background: #f1f5f9;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            color: var(--text-gray);
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .social-link:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-4px);
+        }
+
+        .contact-email {
+            text-align: center;
+            background: #f1f5f9;
+            width: fit-content;
+            margin: 0 auto;
+            padding: 14px 32px;
+            border-radius: 60px;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            border-top: 1px solid var(--border-light);
+            color: var(--text-gray);
+            font-size: 0.85rem;
+        }
+
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        hr {
+            margin: 20px 0;
+            border: none;
+            border-top: 1px solid var(--border-light);
+        }
+
+        @media (max-width: 768px) {
+            .hero-content {
+                flex-direction: column-reverse;
+                text-align: center;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero-stats {
+                justify-content: center;
+            }
+
+            .btn-group {
+                justify-content: center;
+            }
+
+            .section-title {
+                justify-content: center;
+            }
+
+            .fact-item {
+                flex-direction: column;
+                text-align: center;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="lang-switch">
+        <button class="lang-btn active" data-lang="ru">РУ</button>
+        <button class="lang-btn" data-lang="az">AZ</button>
+        <button class="lang-btn" data-lang="en">EN</button>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <div class="container hero-content">
+            <div class="hero-info">
+                <div class="badge-remote fade-up">
+                    <i class="fas fa-globe"></i> <span data-key="remoteBadge">100% Remote · Open to worldwide</span>
+                </div>
+                <h1 class="fade-up" data-key="name">Алиев Руслан Эльданиз</h1>
+                <div class="hero-tagline fade-up" data-key="tagline">Senior PHP Developer · Backend Architect</div>
+                <p class="hero-desc fade-up" data-key="heroDesc">Backend-инженер с 5+ годами опыта в разработке
+                    высоконагруженных систем на PHP/Laravel. Специализируюсь на чистой архитектуре, оптимизации
+                    производительности и удаленной командной работе.</p>
+                <div class="hero-stats fade-up">
+                    <div class="stat"><i class="fas fa-briefcase"></i> <span data-key="expYears">5+ лет опыта</span>
+                    </div>
+                    <div class="stat"><i class="fas fa-code"></i> <span data-key="projects">40+ проектов</span></div>
+                    <div class="stat"><i class="fas fa-users"></i> <span data-key="remote">Удаленная работа</span></div>
+                </div>
+                <div class="btn-group fade-up">
+                    <a href="#contact" class="btn btn-primary"><i class="fas fa-paper-plane"></i> <span
+                            data-key="contactBtn">Связаться</span></a>
+                    <a href="#" id="downloadCvBtn" class="btn btn-outline"><i class="fas fa-file-pdf"></i> <span
+                            data-key="cvBtn">PDF резюме</span></a>
+                </div>
+            </div>
+            <div class="hero-avatar fade-up">
+                <div class="avatar-wrapper" id="avatarFrame">
+                    <img src="./img/775799471.jpeg" alt="Ruslan Aliyev" class="avatar-img" id="avatarImg">
+                </div>
+                <input type="file" id="avatarUpload" accept="image/jpeg,image/png,image/jpg">
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Contact & Personal Info -->
+        <section id="personal">
+            <div class="info-grid">
+                <div class="card fade-up">
+                    <div class="card-icon"><i class="fas fa-phone-alt"></i></div>
+                    <h3 data-key="contactsTitle">Контакты</h3>
+                    <p><i class="fas fa-phone"></i> +994 (55) 8966098</p>
+                    <p><i class="fab fa-vk"></i> sem.alik@vk.com</p>
+                    <p><i class="fas fa-envelope"></i> ruslan.aliev@remote.dev</p>
+                    <p><i class="fab fa-telegram"></i> @ruslan_aliyev</p>
+                </div>
+                <div class="card fade-up">
+                    <div class="card-icon"><i class="fas fa-map-marker-alt"></i></div>
+                    <h3 data-key="locationTitle">Локация</h3>
+                    <p><i class="fas fa-city"></i> <span data-key="city">Баку, Азербайджан</span></p>
+                    <p><i class="fas fa-globe"></i> <span data-key="workMode">Удаленная работа (Remote)</span></p>
+                    <p><i class="fas fa-clock"></i> <span data-key="timezone">GMT+4 · гибкий график</span></p>
+                    <p><i class="fas fa-plane"></i> <span data-key="relocateReady">Готов к релокации</span></p>
+                </div>
+                <div class="card fade-up">
+                    <div class="card-icon"><i class="fas fa-language"></i></div>
+                    <h3 data-key="languagesTitle">Языки</h3>
+                    <p>🇷🇺 Русский — <span data-key="langNative">родной</span></p>
+                    <p>🇦🇿 Azərbaycan — C2 (свободно)</p>
+                    <p>🇬🇧 English — B2 (техническая документация, переписка)</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interesting Facts -->
+        <section id="facts">
+            <h2 class="section-title fade-up"><i class="fas fa-star"></i> <span data-key="factsTitle">Интересные
+                    факты</span></h2>
+            <div class="facts-grid">
+                <div class="fact-item fade-up">
+                    <div class="fact-icon"><i class="fas fa-chart-line"></i></div>
+                    <div class="fact-content">
+                        <h4 data-key="fact1Title">Оптимизация на 300%</h4>
+                        <p data-key="fact1Desc">Ускорил выполнение SQL-запросов в 3 раза через рефакторинг и индексацию.
+                        </p>
+                    </div>
+                </div>
+                <div class="fact-item fade-up">
+                    <div class="fact-icon"><i class="fas fa-pen-fancy"></i></div>
+                    <div class="fact-content">
+                        <h4 data-key="fact2Title">Технический автор</h4>
+                        <p data-key="fact2Desc">Пишу статьи о PHP, Laravel и микросервисной архитектуре.</p>
+                    </div>
+                </div>
+                <div class="fact-item fade-up">
+                    <div class="fact-icon"><i class="fas fa-chalkboard-user"></i></div>
+                    <div class="fact-content">
+                        <h4 data-key="fact3Title">Менторство</h4>
+                        <p data-key="fact3Desc">Провел 15+ код-ревью, обучил 5 джуниоров до middle уровня.</p>
+                    </div>
+                </div>
+                <div class="fact-item fade-up">
+                    <div class="fact-icon"><i class="fas fa-coffee"></i></div>
+                    <div class="fact-content">
+                        <h4 data-key="fact4Title">Кофейный энтузиаст</h4>
+                        <p data-key="fact4Desc">Лучший код пишется утром с чашкой эспрессо ☕</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills -->
+        <section id="skills">
+            <h2 class="section-title fade-up"><i class="fas fa-code"></i> <span data-key="skillsTitle">Технологический
+                    стек</span></h2>
+            <div class="skills-wrapper fade-up" id="skillsList"></div>
+        </section>
+
+        <!-- Experience -->
+        <section id="experience">
+            <h2 class="section-title fade-up"><i class="fas fa-briefcase"></i> <span data-key="expTitle">Опыт
+                    работы</span></h2>
+            <div class="timeline">
+                <div class="timeline-item fade-up">
+                    <div class="timeline-date" data-key="exp1Date">Январь 2024 — настоящее время · 2 года 3 месяца</div>
+                    <div class="timeline-title" data-key="exp1Title">PHP-разработчик · ASAN Xidmət (Баку)</div>
+                    <div class="timeline-desc" data-key="exp1Desc">Разработка высоконагруженных государственных
+                        сервисов. REST API, интеграции, оптимизация MySQL (ускорение на 40%). Удаленное взаимодействие с
+                        командой.</div>
+                </div>
+                <div class="timeline-item fade-up">
+                    <div class="timeline-date" data-key="exp2Date">Октябрь 2023 — Сентябрь 2024 · 1 год</div>
+                    <div class="timeline-title" data-key="exp2Title">Fullstack-разработчик · Whatasoft (Москва)</div>
+                    <div class="timeline-desc" data-key="exp2Desc">Backend на Laravel 10/11, RabbitMQ, Redis, Docker.
+                        Участие в микросервисной архитектуре. Полностью удаленный формат.</div>
+                </div>
+                <div class="timeline-item fade-up">
+                    <div class="timeline-date" data-key="exp3Date">Октябрь 2022 — Октябрь 2023 · 1 год 1 месяц</div>
+                    <div class="timeline-title" data-key="exp3Title">Fullstack-разработчик · Фриланс</div>
+                    <div class="timeline-desc" data-key="exp3Desc">15+ проектов: CRM, маркетплейсы, API-шлюзы. Полный
+                        цикл разработки, работа с заказчиками удаленно.</div>
+                </div>
+                <div class="timeline-item fade-up">
+                    <div class="timeline-date" data-key="exp4Date">Сентябрь 2021 — Сентябрь 2022 · 1 год 1 месяц</div>
+                    <div class="timeline-title" data-key="exp4Title">Backend developer · Evosreda (Москва)</div>
+                    <div class="timeline-desc" data-key="exp4Desc">Корпоративные приложения на Laravel, рефакторинг
+                        легаси, миграция Laravel 6→9. Удаленная работа в распределенной команде.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section id="contact">
+            <h2 class="section-title fade-up"><i class="fas fa-paper-plane"></i> <span data-key="contactTitle">Готов к
+                    сотрудничеству</span></h2>
+            <div class="social-links fade-up">
+                <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-telegram"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-vk"></i></a>
+            </div>
+            <div class="contact-email fade-up">
+                <i class="fas fa-envelope"></i> ruslan.aliev@remote.dev &nbsp;|&nbsp; <i class="fab fa-vk"></i>
+                sem.alik@vk.com
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>© 2026 Алиев Руслан — <span data-key="footerText">PHP Developer · Open for remote opportunities</span>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // ==================== ПОЛНЫЙ МУЛЬТИЯЗЫЧНЫЙ СЛОВАРЬ ====================
+        const translations = {
+            ru: {
+                remoteBadge: "🌍 100% Удаленная работа · Открыт для сотрудничества",
+                name: "Алиев Руслан Эльданиз",
+                tagline: "Senior PHP Developer · Backend Architect",
+                heroDesc: "Backend-инженер с 5+ годами опыта в разработке высоконагруженных систем на PHP/Laravel. Специализируюсь на чистой архитектуре, оптимизации производительности и удаленной командной работе.",
+                expYears: "5+ лет опыта",
+                projects: "40+ проектов",
+                remote: "Удаленная работа",
+                contactBtn: "Связаться",
+                cvBtn: "PDF резюме",
+                contactsTitle: "Контакты",
+                locationTitle: "Локация",
+                city: "Баку, Азербайджан",
+                workMode: "Удаленная работа (Remote)",
+                timezone: "GMT+4 · гибкий график",
+                relocateReady: "Готов к релокации",
+                languagesTitle: "Языки",
+                langNative: "родной",
+                factsTitle: "Интересные факты",
+                fact1Title: "Оптимизация на 300%",
+                fact1Desc: "Ускорил выполнение SQL-запросов в 3 раза через рефакторинг и индексацию.",
+                fact2Title: "Технический автор",
+                fact2Desc: "Пишу статьи о PHP, Laravel и микросервисной архитектуре.",
+                fact3Title: "Менторство",
+                fact3Desc: "Провел 15+ код-ревью, обучил 5 джуниоров до middle уровня.",
+                fact4Title: "Кофейный энтузиаст",
+                fact4Desc: "Лучший код пишется утром с чашкой эспрессо ☕",
+                skillsTitle: "Технологический стек",
+                skillsList: ["PHP 8.2/8.3", "Laravel (8-12)", "MySQL / PostgreSQL", "REST API / GraphQL", "Redis / RabbitMQ", "Docker / Docker Compose", "Git & CI/CD", "Linux / Nginx", "ClickHouse", "TDD / PHPUnit", "JavaScript / jQuery", "HTML5 / CSS3 / Tailwind"],
+                expTitle: "Опыт работы",
+                exp1Date: "Январь 2024 — настоящее время · 2 года 3 месяца",
+                exp1Title: "PHP-разработчик · ASAN Xidmət (Баку)",
+                exp1Desc: "Разработка высоконагруженных государственных сервисов. REST API, интеграции, оптимизация MySQL (ускорение на 40%). Удаленное взаимодействие с командой.",
+                exp2Date: "Октябрь 2023 — Сентябрь 2024 · 1 год",
+                exp2Title: "Fullstack-разработчик · Whatasoft (Москва)",
+                exp2Desc: "Backend на Laravel 10/11, RabbitMQ, Redis, Docker. Участие в микросервисной архитектуре. Полностью удаленный формат.",
+                exp3Date: "Октябрь 2022 — Октябрь 2023 · 1 год 1 месяц",
+                exp3Title: "Fullstack-разработчик · Фриланс",
+                exp3Desc: "15+ проектов: CRM, маркетплейсы, API-шлюзы. Полный цикл разработки, работа с заказчиками удаленно.",
+                exp4Date: "Сентябрь 2021 — Сентябрь 2022 · 1 год 1 месяц",
+                exp4Title: "Backend developer · Evosreda (Москва)",
+                exp4Desc: "Корпоративные приложения на Laravel, рефакторинг легаси, миграция Laravel 6→9. Удаленная работа в распределенной команде.",
+                contactTitle: "Готов к сотрудничеству",
+                footerText: "PHP Developer · Open for remote opportunities"
+            },
+            az: {
+                remoteBadge: "🌍 100% Remote iş · Əməkdaşlığa açıq",
+                name: "Əliyev Ruslan Eldaniz",
+                tagline: "Senior PHP Developer · Backend Memar",
+                heroDesc: "PHP/Laravel ilə yüksək yüklü sistemlərin hazırlanmasında 5+ il təcrübəsi olan backend mühəndis. Təmiz arxitektura, performans optimizasiyası və remote komanda işi üzrə ixtisaslaşmışam.",
+                expYears: "5+ il təcrübə",
+                projects: "40+ layihə",
+                remote: "Remote iş",
+                contactBtn: "Əlaqə",
+                cvBtn: "PDF CV",
+                contactsTitle: "Əlaqə",
+                locationTitle: "Lokasiya",
+                city: "Bakı, Azərbaycan",
+                workMode: "Remote iş",
+                timezone: "GMT+4 · çevik qrafik",
+                relocateReady: "Köçməyə hazır",
+                languagesTitle: "Dillər",
+                langNative: "ana dili",
+                factsTitle: "Maraqlı faktlar",
+                fact1Title: "300% optimizasiya",
+                fact1Desc: "SQL sorğularını 3 dəfə sürətləndirdim, refaktoring və indeksasiya ilə.",
+                fact2Title: "Texniki yazar",
+                fact2Desc: "PHP, Laravel və mikroservis memarlığı haqqında məqalələr yazıram.",
+                fact3Title: "Mentorluq",
+                fact3Desc: "15+ kod-review, 5 junioru middle səviyyəsinə qədər yetişdirdim.",
+                fact4Title: "Qəhvə həvəskarı",
+                fact4Desc: "Ən yaxşı kod səhər bir fincan espresso ilə yazılır ☕",
+                skillsTitle: "Texnoloji stack",
+                skillsList: ["PHP 8.2/8.3", "Laravel (8-12)", "MySQL / PostgreSQL", "REST API / GraphQL", "Redis / RabbitMQ", "Docker / Compose", "Git & CI/CD", "Linux / Nginx", "ClickHouse", "TDD / PHPUnit", "JavaScript / jQuery", "HTML5 / CSS3 / Tailwind"],
+                expTitle: "İş təcrübəsi",
+                exp1Date: "Yanvar 2024 — hal-hazırda · 2 il 3 ay",
+                exp1Title: "PHP Developer · ASAN Xidmət (Bakı)",
+                exp1Desc: "Yüksək yüklü dövlət xidmətlərinin hazırlanması. REST API, inteqrasiyalar, MySQL optimizasiyası (40% sürətlənmə). Remote komanda ilə iş.",
+                exp2Date: "Oktyabr 2023 — Sentyabr 2024 · 1 il",
+                exp2Title: "Fullstack Developer · Whatasoft (Moskva)",
+                exp2Desc: "Laravel 10/11, RabbitMQ, Redis, Docker. Mikroservis memarlığı. Tam remote format.",
+                exp3Date: "Oktyabr 2022 — Oktyabr 2023 · 1 il 1 ay",
+                exp3Title: "Fullstack Developer · Freelance",
+                exp3Desc: "15+ layihə: CRM, marketpleyslər, API şlüzləri. Tam dövr inkişaf, remote iş.",
+                exp4Date: "Sentyabr 2021 — Sentyabr 2022 · 1 il 1 ay",
+                exp4Title: "Backend developer · Evosreda (Moskva)",
+                exp4Desc: "Laravel ilə korporativ tətbiqlər, legacy refaktoring, Laravel 6→9 miqrasiya. Remote komanda.",
+                contactTitle: "Əməkdaşlığa hazır",
+                footerText: "PHP Developer · Remote iş üçün açıq"
+            },
+            en: {
+                remoteBadge: "🌍 100% Remote · Open to collaboration",
+                name: "Aliyev Ruslan Eldaniz",
+                tagline: "Senior PHP Developer · Backend Architect",
+                heroDesc: "Backend engineer with 5+ years of experience in high-load systems with PHP/Laravel. Specialized in clean architecture, performance optimization, and remote teamwork.",
+                expYears: "5+ years exp",
+                projects: "40+ projects",
+                remote: "Remote work",
+                contactBtn: "Contact",
+                cvBtn: "PDF Resume",
+                contactsTitle: "Contacts",
+                locationTitle: "Location",
+                city: "Baku, Azerbaijan",
+                workMode: "Remote work",
+                timezone: "GMT+4 · flexible schedule",
+                relocateReady: "Ready to relocate",
+                languagesTitle: "Languages",
+                langNative: "native",
+                factsTitle: "Interesting facts",
+                fact1Title: "300% Optimization",
+                fact1Desc: "Sped up SQL queries by 3x through refactoring and indexing.",
+                fact2Title: "Tech Writer",
+                fact2Desc: "Write articles about PHP, Laravel and microservice architecture.",
+                fact3Title: "Mentoring",
+                fact3Desc: "Conducted 15+ code reviews, trained 5 juniors to middle level.",
+                fact4Title: "Coffee Enthusiast",
+                fact4Desc: "Best code is written in the morning with a cup of espresso ☕",
+                skillsTitle: "Tech Stack",
+                skillsList: ["PHP 8.2/8.3", "Laravel (8-12)", "MySQL / PostgreSQL", "REST API / GraphQL", "Redis / RabbitMQ", "Docker / Compose", "Git & CI/CD", "Linux / Nginx", "ClickHouse", "TDD / PHPUnit", "JavaScript / jQuery", "HTML5 / CSS3 / Tailwind"],
+                expTitle: "Work Experience",
+                exp1Date: "Jan 2024 — Present · 2 years 3 months",
+                exp1Title: "PHP Developer · ASAN Xidmət (Baku)",
+                exp1Desc: "High-load government services development. REST API, integrations, MySQL optimization (40% speedup). Remote team collaboration.",
+                exp2Date: "Oct 2023 — Sep 2024 · 1 year",
+                exp2Title: "Fullstack Developer · Whatasoft (Moscow)",
+                exp2Desc: "Backend on Laravel 10/11, RabbitMQ, Redis, Docker. Microservice architecture. Fully remote format.",
+                exp3Date: "Oct 2022 — Oct 2023 · 1 year 1 month",
+                exp3Title: "Fullstack Developer · Freelance",
+                exp3Desc: "15+ projects: CRM, marketplaces, API gateways. Full cycle development, remote work with clients.",
+                exp4Date: "Sep 2021 — Sep 2022 · 1 year 1 month",
+                exp4Title: "Backend developer · Evosreda (Moscow)",
+                exp4Desc: "Enterprise Laravel applications, legacy refactoring, Laravel 6→9 migration. Remote work in distributed team.",
+                contactTitle: "Ready to collaborate",
+                footerText: "PHP Developer · Open for remote opportunities"
+            }
+        };
+
+        let currentLang = "ru";
+
+        function updateSkills(data) {
+            const container = document.getElementById("skillsList");
+            if (container) {
+                container.innerHTML = data.skillsList.map(s => `<span class="skill-tag">${s}</span>`).join('');
+            }
+        }
+
+        function updateTexts(lang) {
+            const data = translations[lang];
+            if (!data) return;
+
+            document.querySelectorAll("[data-key]").forEach(el => {
+                const key = el.getAttribute("data-key");
+                if (data[key] !== undefined) {
+                    el.innerText = data[key];
+                }
+            });
+
+            updateSkills(data);
+
+            document.querySelectorAll(".lang-btn").forEach(btn => {
+                if (btn.getAttribute("data-lang") === lang) {
+                    btn.classList.add("active");
+                } else {
+                    btn.classList.remove("active");
+                }
+            });
+        }
+
+        document.querySelectorAll(".lang-btn").forEach(btn => {
+            btn.addEventListener("click", () => {
+                currentLang = btn.getAttribute("data-lang");
+                updateTexts(currentLang);
+                localStorage.setItem("langPref", currentLang);
+            });
+        });
+
+        const savedLang = localStorage.getItem("langPref");
+        if (savedLang && translations[savedLang]) {
+            currentLang = savedLang;
+        }
+        updateTexts(currentLang);
+
+        // PDF Download
+        document.getElementById("downloadCvBtn").addEventListener("click", (e) => {
+            e.preventDefault();
+            const messages = { ru: "📄 Демо-резюме будет доступно в PDF", az: "📄 Demo CV PDF faylı hazırlanır", en: "📄 Demo resume PDF will be generated" };
+            alert(messages[currentLang] || messages.ru);
+        });
+
+        // Avatar upload
+        const avatarFrame = document.getElementById("avatarFrame");
+        const avatarUpload = document.getElementById("avatarUpload");
+        const avatarImg = document.getElementById("avatarImg");
+
+        avatarFrame.addEventListener("click", () => avatarUpload.click());
+        avatarUpload.addEventListener("change", (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (ev) => {
+                    avatarImg.src = ev.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener("click", function (e) {
+                const targetId = this.getAttribute("href");
+                if (targetId && targetId !== "#") {
+                    const target = document.querySelector(targetId);
+                    if (target) {
+                        e.preventDefault();
+                        target.scrollIntoView({ behavior: "smooth", block: "start" });
+                    }
+                }
+            });
+        });
+
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("visible");
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll(".fade-up").forEach(el => observer.observe(el));
+    </script>
+</body>
+
+</html>
